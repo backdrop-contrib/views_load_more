@@ -61,6 +61,9 @@
       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
     }
 
+    // Additional processing over new content
+    wrapper.trigger('views_load_more.new_content', new_content.clone());
+
     // Attach all JavaScript behaviors to the new content
     // Remove the Jquery once Class, TODO: There needs to be a better
     // way of doing this, look at .removeOnce() :-/
