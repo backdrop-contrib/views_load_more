@@ -115,8 +115,13 @@
     detach: function (context, settings, trigger) {
       if (settings && Drupal.settings.viewsLoadMore && settings.views.ajaxViews) {
         $.each(settings.viewsLoadMore, function(i, setting) {
-          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
-          $(view, context).waypoint('destroy');
+          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id;
+          if ($(context).is(view)) {
+            $('.pager-next a', view).waypoint('destroy');
+          }
+          else {
+            $(view, context).waypoint('destroy');
+          }
         });
       }
     }
