@@ -105,8 +105,8 @@
         };
         $.each(settings.viewsLoadMore, function(i, setting) {
           var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
+          $(view).waypoint('destroy');
           $(view).waypoint(function(event, direction) {
-            $(view).waypoint('remove');
             $(view).click();
           }, opts);
         });
