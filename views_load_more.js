@@ -49,16 +49,21 @@
     // jquery selector to replace the content with.
     // Provide sensible defaults for unordered list, ordered list and table
     // view styles.
-    var content_query = targetList && !response.options.content ? '.view-content ' + targetList : response.options.content || '.view-content';
+    var content_query = targetList && !response.options.content ? '> .view-content ' + targetList : response.options.content || '> .view-content';
 
     // If we're using any effects. Hide the new content before adding it to the DOM.
     if (effect.showEffect != 'show') {
       new_content.find(content_query).children().hide();
     }
 
+    // Update the pager
+    // Find both for the wrapper as the newly loaded content the direct child
+    // .item-list in case of nested pagers
+    var pagerWrapper = wrapper.find('> .item-list');
+    var newPager = new_content.find('> .item-list').html();
+    pagerWrapper.html(newPager);
+
     // Add the new content to the page.
-    wrapper.find('.pager a').remove();
-    wrapper.find('.pager').parent('.item-list').html(new_content.find('.pager'));
     wrapper.find(content_query)[method](new_content.find(content_query).children());
 
     // Re-class the loaded content.
@@ -125,5 +130,5 @@
         });
       }
     }
-     };
+  };
 })(jQuery);
