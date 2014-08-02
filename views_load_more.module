@@ -49,7 +49,7 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
       }
       // the replace should the only one, but just in case, we'll make sure.
       if ($command['command'] == 'insert' && $command['selector'] == '.view-dom-id-' . $view->dom_id) {
-        if ($view->style_plugin->options['type'] == 'ul' || $view->style_plugin->options['type'] == 'ol') {
+        if ($view->style_plugin->plugin_name == 'list' && in_array($view->style_plugin->options['type'], array('ul', 'ol'))) {
           if (empty($view->style_plugin->options['wrapper_class'])) {
             $target = "> {$view->style_plugin->options['type']}:not(.links)";
           }
@@ -60,9 +60,8 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
           }
           $commands[$key]['targetList'] = $target;
         }
-        if ($view->style_plugin->plugin_name == 'table') {
-          $target = '.views-table tbody';
-          $commands[$key]['targetList'] = $target;
+        else if ($view->style_plugin->plugin_name == 'table') {
+          $commands[$key]['targetList'] = '.views-table tbody';
         }
 
         $commands[$key]['command'] = 'viewsLoadMoreAppend';
