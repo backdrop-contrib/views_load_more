@@ -79,6 +79,8 @@ function theme_views_load_more_pager($vars) {
   $element = $vars['element'];
   $parameters = $vars['parameters'];
 
+  $pager_classes = array('pager', 'pager-load-more');
+
   $li_next = theme('pager_next',
     array(
       'text' => (isset($tags[3]) ? $tags[3] : t($vars['more_button_text'])),
@@ -88,7 +90,8 @@ function theme_views_load_more_pager($vars) {
     )
   );
   if (empty($li_next)) {
-    $li_next = "&nbsp;";
+    $li_next = empty($vars['more_button_empty_text']) ? '&nbsp;' : t($vars['more_button_empty_text']);
+    $pager_classes[] = 'pager-load-more-empty';
   }
 
   if ($pager_total[$element] > 1) {
@@ -101,7 +104,7 @@ function theme_views_load_more_pager($vars) {
         'items' => $items,
         'title' => NULL,
         'type' => 'ul',
-        'attributes' => array('class' => array('pager', 'pager-load-more')),
+        'attributes' => array('class' => $pager_classes),
       )
     );
   }

@@ -34,6 +34,10 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       'default' => t('Load more'),
       'translateable' => TRUE,
     );
+    $options['more_button_empty_text'] = array(
+      'default' => '',
+      'translatable' => TRUE,
+    );
     $options['advance'] = array(
       'contains' => array(
         'row_class' => array('default' => ''),
@@ -59,6 +63,14 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       '#title' => t('More link text'),
       '#description' => t('The text that will be displayed on the link that is used to load more elements. For example "Show me more"'),
       '#default_value' => $this->options['more_button_text'] ? $this->options['more_button_text'] : t('Load more'),
+      '#weight' => -1,
+    );
+    // Option for users to specify the text used on the 'load more' button when no mor result is found.
+    $form['more_button_empty_text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('More link text when empty'),
+      '#description' => t('The text that will replace the link that is used to load more elements when there is no more element to load. For example "No more results"'),
+      '#default_value' => $this->options['more_button_empty_text'] ? $this->options['more_button_empty_text'] : '',
       '#weight' => -1,
     );
 
@@ -149,6 +161,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       'parameters' => $input,
       'element' => $this->options['id'],
       'more_button_text' => $this->options['more_button_text'],
+      'more_button_empty_text' => $this->options['more_button_empty_text'],
     );
 
     return theme($pager_theme, $vars);
