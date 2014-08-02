@@ -44,6 +44,12 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
         'content_class' => array('default' => ''),
       ),
     );
+    $options['effects'] = array(
+      'contains' => array(
+        'type' => array('default' => 'none'),
+        'speed' => array('default' => ''),
+      ),
+    );
     return $options;
   }
 
