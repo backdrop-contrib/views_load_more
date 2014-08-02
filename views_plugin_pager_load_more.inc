@@ -32,7 +32,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
     );
     $options['more_button_text'] = array(
       'default' => t('Load more'),
-      'translateable' => TRUE,
+      'translatable' => TRUE,
     );
     $options['more_button_empty_text'] = array(
       'default' => '',
