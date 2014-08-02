@@ -104,7 +104,7 @@
    */
   Drupal.behaviors.ViewsLoadMore = {
     attach: function (context, settings) {
-      if (settings && settings.viewsLoadMore && settings.views.ajaxViews) {
+      if (settings && settings.viewsLoadMore && settings.views && settings.views.ajaxViews) {
         opts = {
           offset: '100%'
         };
@@ -118,7 +118,7 @@
       }
     },
     detach: function (context, settings, trigger) {
-      if (settings && Drupal.settings.viewsLoadMore && settings.views.ajaxViews) {
+      if (settings && settings.viewsLoadMore && settings.views && settings.views.ajaxViews) {
         $.each(settings.viewsLoadMore, function(i, setting) {
           var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id;
           if ($(context).is(view)) {
