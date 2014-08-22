@@ -152,13 +152,18 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
   function render($input) {
     if (module_exists('waypoints') && $this->options['waypoint']['infinite'] == 1) {
       $viewsLoadMore = array();
+      $waypoint_opts = array(
+        'offset' => '100%',
+      );
+      drupal_alter('views_load_more_waypoint_opts', $waypoint_opts, $this->view);
       $viewsLoadMore[] = array(
         'view_name' => $this->view->name,
         'view_display_id' => $this->view->current_display,
         'waypoints' => 'infinite',
+        'opts' => $waypoint_opts,
       );
       drupal_add_library('waypoints', 'waypoints');
-      drupal_add_js(array('viewsLoadMore' => $viewsLoadMore),'setting');
+      drupal_add_js(array('viewsLoadMore' => $viewsLoadMore), 'setting');
     }
 
     $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);

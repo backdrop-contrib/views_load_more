@@ -104,12 +104,17 @@
    */
   Drupal.behaviors.ViewsLoadMore = {
     attach: function (context, settings) {
-      if (settings && settings.viewsLoadMore && settings.views && settings.views.ajaxViews) {
-        opts = {
+      var default_opts = {
           offset: '100%'
         };
+
+      if (settings && settings.viewsLoadMore && settings.views && settings.views.ajaxViews) {
         $.each(settings.viewsLoadMore, function(i, setting) {
-          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a';
+          var view = '.view-id-' + setting.view_name + '.view-display-id-' + setting.view_display_id + ' .pager-next a',
+            opts = {};
+
+          $.extend(opts, default_opts, settings.viewsLoadMore[i].opts);
+
           $(view).waypoint('destroy');
           $(view).waypoint(function(event, direction) {
             $(view).click();
