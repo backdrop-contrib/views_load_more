@@ -156,7 +156,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
         'offset' => '100%',
       );
       drupal_alter('views_load_more_waypoint_opts', $waypoint_opts, $this->view);
-      $viewsLoadMore[] = array(
+      $viewsLoadMore[$this->view->name . '-' . $this->view->current_display] = array(
         'view_name' => $this->view->name,
         'view_display_id' => $this->view->current_display,
         'waypoints' => 'infinite',
