@@ -124,7 +124,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
     $form['advance']['pager_selector'] = array(
       '#type' => 'textfield',
       '#title' => t('Pager selector'),
-      '#description' => t('jQuery selector for the pager, relative to the view container.  Use when overriding the pager markup so that Views Load More knows where to find and how to replace the pager.  Unless specified, Views Load More will use <strong><code>&gt; .item-list</code></strong>.'),
+      '#description' => t('jQuery selector for the pager, relative to the view container.  Use when overriding the pager markup so that Views Load More knows where to find and how to replace the pager.  Unless specified, Views Load More will use <strong><code>.pager-load-more</code></strong>.'),
       '#default_value' => $this->options['advance']['content_class'],
     );
     // Affect the way that Views Load More adds new rows

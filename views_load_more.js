@@ -15,7 +15,7 @@
     var method = response.method || ajax.method;
     var targetList = response.targetList || '';
     var effect = ajax.getEffect(response);
-    var pager_selector = response.options.pager_selector ? response.options.pager_selector : '> .item-list';
+    var pager_selector = response.options.pager_selector ? response.options.pager_selector : '.pager-load-more';
 
     // We don't know what response.data contains: it might be a string of text
     // without HTML, so don't rely on jQuery correctly iterpreting
@@ -60,9 +60,7 @@
     // Update the pager
     // Find both for the wrapper as the newly loaded content the direct child
     // .item-list in case of nested pagers
-    var pagerWrapper = wrapper.find(pager_selector);
-    var newPager = new_content.find(pager_selector).html();
-    pagerWrapper.html(newPager);
+    wrapper.find(pager_selector).replaceWith(new_content.find(pager_selector));
 
     // Add the new content to the page.
     wrapper.find(content_query)[method](new_content.find(content_query).children());
