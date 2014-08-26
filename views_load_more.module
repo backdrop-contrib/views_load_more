@@ -71,7 +71,9 @@ function views_load_more_views_ajax_data_alter(&$commands, $view) {
           $commands[$key]['speed'] = $view->query->pager->options['effects']['speed'];
         }
         $commands[$key]['options'] = array(
+          // @todo change to content_selector
           'content' => $view->query->pager->options['advance']['content_class'],
+          'pager_selector' => $view->query->pager->options['advance']['pager_selector'],
         );
       }
     }

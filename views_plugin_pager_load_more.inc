@@ -17,7 +17,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
     if (!empty($this->options['offset'])) {
       return format_plural($this->options['items_per_page'], 'Load more pager, @count item, skip @skip', 'Load more pager, @count items, skip @skip', array('@count' => $this->options['items_per_page'], '@skip' => $this->options['offset']));
     }
-      return format_plural($this->options['items_per_page'], 'Load more pager, @count item', 'Load more pager, @count items', array('@count' => $this->options['items_per_page']));
+    return format_plural($this->options['items_per_page'], 'Load more pager, @count item', 'Load more pager, @count items', array('@count' => $this->options['items_per_page']));
   }
 
   /**
@@ -40,8 +40,9 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
     );
     $options['advance'] = array(
       'contains' => array(
-        'row_class' => array('default' => ''),
+        // @todo change name to content_selector
         'content_class' => array('default' => ''),
+        'pager_selector' => array('default' => ''),
       ),
     );
     $options['effects'] = array(
@@ -97,21 +98,36 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
         '#default_value' => $this->options['waypoint']['infinite'],
       );
     }
+
+    // Advanced options, override default selectors.
     $form['advance'] = array(
       '#type' => 'fieldset',
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
       '#tree' => TRUE,
-      '#title' =>  t('Advance Options'),
+      '#title' =>  t('Advanced Options'),
       '#input' => TRUE,
-      '#description' => t('Configure advance options.'),
+      '#description' => t('Configure advanced options.'),
     );
+    // Option to specify the content_class, which is the wrapping div for views
+    // rows.  This allows the JS to both find new rows on next pages and know
+    // where to put them in the page.
+    // @todo change name to content_selector
     $form['advance']['content_class'] = array(
       '#type' => 'textfield',
       '#title' => t('Content selection selector'),
-      '#description' => t('Use for advance replace selector, extremely useful when overwriting the views tpl.'),
+      '#description' => t('jQuery selector for the rows wrapper, relative to the view container.  Use when overriding the views markup.  Note that Views Load More requires a wrapping element for the rows.  Unless specified, Views Load More will use <strong><code>&gt; .view-content</code></strong>.'),
       '#default_value' => $this->options['advance']['content_class'],
     );
+    // Option to specify the pager_selector, which is the pager relative to the
+    // view container.
+    $form['advance']['pager_selector'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Pager selector'),
+      '#description' => t('jQuery selector for the pager, relative to the view container.  Use when overriding the pager markup so that Views Load More knows where to find and how to replace the pager.  Unless specified, Views Load More will use <strong><code>&gt; .item-list</code></strong>.'),
+      '#default_value' => $this->options['advance']['content_class'],
+    );
+    // Affect the way that Views Load More adds new rows
     $form['effects'] = array(
       '#type' => 'fieldset',
       '#collapsible' => TRUE,

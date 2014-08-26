@@ -15,6 +15,7 @@
     var method = response.method || ajax.method;
     var targetList = response.targetList || '';
     var effect = ajax.getEffect(response);
+    var pager_selector = response.options.pager_selector ? response.options.pager_selector : '> .item-list';
 
     // We don't know what response.data contains: it might be a string of text
     // without HTML, so don't rely on jQuery correctly iterpreting
@@ -59,14 +60,15 @@
     // Update the pager
     // Find both for the wrapper as the newly loaded content the direct child
     // .item-list in case of nested pagers
-    var pagerWrapper = wrapper.find('> .item-list');
-    var newPager = new_content.find('> .item-list').html();
+    var pagerWrapper = wrapper.find(pager_selector);
+    var newPager = new_content.find(pager_selector).html();
     pagerWrapper.html(newPager);
 
     // Add the new content to the page.
     wrapper.find(content_query)[method](new_content.find(content_query).children());
 
     // Re-class the loaded content.
+    // @todo this is faulty in many ways.  first of which is that user may have configured view to not have these classes at all.
     wrapper.find(content_query).children()
       .removeClass('views-row-first views-row-last views-row-odd views-row-even')
       .filter(':first')
@@ -95,9 +97,9 @@
     var classes = wrapper.attr('class');
     var onceClass = classes.match(/jquery-once-[0-9]*-[a-z]*/);
     wrapper.removeClass(onceClass[0]);
-    var settings = response.settings || ajax.settings || Drupal.settings;
+    settings = response.settings || ajax.settings || Drupal.settings;
     Drupal.attachBehaviors(wrapper, settings);
-  }
+  };
 
   /**
    * Attaches the AJAX behavior to Views Load More waypoint support.
