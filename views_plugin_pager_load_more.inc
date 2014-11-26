@@ -141,6 +141,7 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       '#options' => array(
         'none' => t('None'),
         'fade' => t('Fade'),
+        'slide' => t('Slide'),
       ),
       '#default_vaue' => 'none',
       '#title' => t('Effect Type'),
@@ -154,7 +155,8 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       ),
       '#states' => array(
         'visible' => array(
-          '#edit-pager-options-effects-type' => array('value' => t('fade')),
+          array('#edit-pager-options-effects-type' => array('value' => 'fade')),
+          array('#edit-pager-options-effects-type' => array('value' => 'slide')),
         ),
       ),
       '#title' => t('Effect Speed'),
