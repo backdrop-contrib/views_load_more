@@ -173,15 +173,15 @@ class views_plugin_pager_load_more extends views_plugin_pager_full {
       $waypoint_opts = array(
         'offset' => '100%',
       );
-      drupal_alter('views_load_more_waypoint_opts', $waypoint_opts, $this->view);
+      backdrop_alter('views_load_more_waypoint_opts', $waypoint_opts, $this->view);
       $viewsLoadMore[$this->view->name . '-' . $this->view->current_display] = array(
         'view_name' => $this->view->name,
         'view_display_id' => $this->view->current_display,
         'waypoints' => 'infinite',
         'opts' => $waypoint_opts,
       );
-      drupal_add_library('waypoints', 'waypoints');
-      drupal_add_js(array('viewsLoadMore' => $viewsLoadMore), 'setting');
+      backdrop_add_library('waypoints', 'waypoints');
+      backdrop_add_js(array('viewsLoadMore' => $viewsLoadMore), 'setting');
     }
 
     $pager_theme = views_theme_functions('views_load_more_pager', $this->view, $this->display);

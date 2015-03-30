@@ -8,7 +8,7 @@
   /**
    * Provide a series of commands that the server can request the client perform.
    */
-  Drupal.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
+  Backdrop.ajax.prototype.commands.viewsLoadMoreAppend = function (ajax, response, status) {
     // Get information from the response. If it is not there, default to
     // our presets.
     var wrapper = response.selector ? $(response.selector) : $(ajax.wrapper);
@@ -34,13 +34,13 @@
     // allowed (e.g., within TABLE, TR, and SPAN parents), we check if the new
     // content satisfies the requirement of a single top-level element, and
     // only use the container DIV created above when it doesn't. For more
-    // information, please see http://drupal.org/node/736066.
+    // information, please see http://backdrop.org/node/736066.
     if (new_content.length != 1 || new_content.get(0).nodeType != 1) {
       new_content = new_content_wrapped;
     }
     // If removing content from the wrapper, detach behaviors first.
-    var settings = response.settings || ajax.settings || Drupal.settings;
-    Drupal.detachBehaviors(wrapper, settings);
+    var settings = response.settings || ajax.settings || Backdrop.settings;
+    Backdrop.detachBehaviors(wrapper, settings);
     if ($.waypoints != undefined) {
       $.waypoints('refresh');
     }
@@ -95,14 +95,14 @@
     var classes = wrapper.attr('class');
     var onceClass = classes.match(/jquery-once-[0-9]*-[a-z]*/);
     wrapper.removeClass(onceClass[0]);
-    settings = response.settings || ajax.settings || Drupal.settings;
-    Drupal.attachBehaviors(wrapper, settings);
+    settings = response.settings || ajax.settings || Backdrop.settings;
+    Backdrop.attachBehaviors(wrapper, settings);
   };
 
   /**
    * Attaches the AJAX behavior to Views Load More waypoint support.
    */
-  Drupal.behaviors.ViewsLoadMore = {
+  Backdrop.behaviors.ViewsLoadMore = {
     attach: function (context, settings) {
       var default_opts = {
           offset: '100%'

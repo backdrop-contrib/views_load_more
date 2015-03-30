@@ -14,6 +14,20 @@ function views_load_more_views_api() {
   return array('api' => '3.0-alpha1');
 }
 
+/**
+ * Include views files.
+ */
+module_load_include('inc', 'views_load_more', 'views_load_more.views');
+
+/**
+ * Implements hook_autoload_info().
+ */
+function views_load_more_autoload_info() {
+  return array(
+    'views_plugin_pager_load_more' => 'views/views_plugin_pager_load_more.inc',
+  );
+}
+
 // We need to implement our own tpls for items being return via the load-more pager.
 
 /**
@@ -132,5 +146,5 @@ function views_load_more_views_pre_render(&$view) {
     return;
   }
 
-  drupal_add_js(drupal_get_path('module', 'views_load_more') . '/views_load_more.js');
+  backdrop_add_js(backdrop_get_path('module', 'views_load_more') . '/js/views_load_more.js');
 }
