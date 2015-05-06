@@ -3,3 +3,4 @@ description = A pager plugin for views. Gives users the option to add a 'more' b
 backdrop = 1.x
 package = Views
 dependencies[] = views
+type = module
