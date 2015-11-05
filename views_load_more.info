@@ -4,3 +4,4 @@ backdrop = 1.x
 package = Views
 dependencies[] = views
 type = module
+version = 1.x-1.0.1
